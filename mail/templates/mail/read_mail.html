@@ -1,0 +1,23 @@
+{% extends "mail/mail_base.html" %}
+{% block mails %}
+<div class="email-head">
+    <div class="email-head-subject">
+      <div class="title d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center font-weight-bold">
+          Subject: {{ mail.subject }}
+        </div>
+      </div>
+    </div>
+    <div class="email-head-sender d-flex align-items-center justify-content-between flex-wrap">
+      <div class="d-flex align-items-center">
+        <div class="sender d-flex align-items-center">
+          <span>From {{ mail.sent_from.username }} to {{ mail.sent_to.username }}</span> 
+        </div>
+      </div>
+      <div class="date">{{ mail.date_sent }}</div>
+    </div>
+</div>
+<div class="email-body">
+    {{mail.content}}
+</div>
+{% endblock %}

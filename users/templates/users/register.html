@@ -1,0 +1,44 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}    
+<div class="login-registration" style="background-image: url(https://wallpapercave.com/wp/wp4021632.jpg)">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-11">
+            <div class="card-group mb-0">
+                <div class="card p-4">
+                <div class="card-body">
+                    <h1>Register</h1>
+                    <p class="text-muted">Create your account</p>
+                    <form role="form" method="POST">
+                        {% csrf_token %}
+                        <fieldset>
+                            {{ form|crispy }}
+                        </fieldset>
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <button class="btn btn-success px-4" type="submit">Register</button>
+                            </div>
+                            <div class="col-6 text-right">
+                                <small class="text-muted">
+                                    Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+                                </small>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+                <div class="card text-white bg-success d-md-down-none" style="width:44%">
+                <div style="height: 750px; overflow: hidden;">
+                    <div style="margin: -250px 0px 0px 0px;">
+                    <img src="https://c0.wallpaperflare.com/preview/935/131/755/flowers-interior-room-home.jpg" alt="">
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

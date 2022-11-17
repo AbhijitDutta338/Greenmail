@@ -1,0 +1,53 @@
+{% extends "mail/mail_base.html" %}
+{% block mails %}
+
+<div class="container">
+    <h2 class="py-2">Mailing Lists to Consider Unsubscribing</h2>
+    <p>
+        According to research by McAfee, a remarkable 78% of all incoming emails are spam. Around 62 trillion
+        spam messages are sent every year, requiring the use of 33bn kilowatt hours (KWh) of electricity and
+        causing around 20 million tonnes of CO2e per year.
+    </p>            
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>UserName</th>
+          <th>Email</th>
+          <th>No. Unread Mails</th>
+          <th>Total Mails</th>
+          <th>Engagement %</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for prMailer in prMailers %}
+          <tr>
+            <td><a href="{% url 'mail-home' prMailer.username %}">{{ prMailer.username }}</a></td>
+            <td>{{ prMailer.email }}</td>
+            <td>{{ prMailer.UnreadMails }}</td>
+            <td>{{ prMailer.TotalMails }}</td>
+            <td>{{ prMailer.Engagement }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+
+{% if prMailers.has_previous %}
+<a class="btn btn-outline-success mb-4" href="?page=1">First</a>
+<a class="btn btn-outline-success mb-4" href="?page={{ prMailers.previous_page_number }}">Prev</a>
+{% endif %}
+
+{% for num in prMailers.paginator.page_range %}
+{% if prMailers.number == num %}
+    <a class="btn btn-success mb-4" href="?page={{ num }}">{{ num }}</a>
+{% elif num > prMailers.number|add:'-3' and num < prMailers.number|add:'3' %}
+    <a class="btn btn-outline-success mb-4" href="?page={{ num }}">{{ num }}</a>
+{% endif %}
+{% endfor %}
+
+{% if prMailers.has_next %}
+<a class="btn btn-outline-success mb-4" href="?page={{ prMailers.next_page_number }}">Next</a>
+<a class="btn btn-outline-success mb-4" href="?page={{ prMailers.paginator.num_pages }}">Last</a>
+{% endif %}
+
+{% endblock %}

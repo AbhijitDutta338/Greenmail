@@ -1,0 +1,49 @@
+{% extends "mail/mail_base.html" %}
+{% block mails %}
+<ul class="messages">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}            
+        
+    {% for mail in mails %}
+
+        <li class="{% if mail.mail_read %}message{% else%}message unread{% endif %}">
+            <a href="{% url 'read_mail' mail.id %}">
+                <div class="actions">
+                    <span class="action"><i class="fa fa-square-o"></i></span>
+                    <span class="action"><i class="fa fa-star-o"></i></span>
+                </div>
+                <div class="header">
+                    <span class="from">{{ mail.sent_from.username }}</span>
+                    <span class="date">
+                    <span class="fa fa-paper-clip"></span>{{ mail.date_sent }}</span>
+                </div>
+                <div class="title">{{ mail.subject }}</div>
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% if mails.has_previous %}
+<a class="btn btn-outline-success mb-4" href="?page=1">First</a>
+<a class="btn btn-outline-success mb-4" href="?page={{ mails.previous_page_number }}">Prev</a>
+{% endif %}
+
+{% for num in mails.paginator.page_range %}
+{% if mails.number == num %}
+    <a class="btn btn-success mb-4" href="?page={{ num }}">{{ num }}</a>
+{% elif num > mails.number|add:'-3' and num < mails.number|add:'3' %}
+    <a class="btn btn-outline-success mb-4" href="?page={{ num }}">{{ num }}</a>
+{% endif %}
+{% endfor %}
+
+{% if mails.has_next %}
+<a class="btn btn-outline-success mb-4" href="?page={{ mails.next_page_number }}">Next</a>
+<a class="btn btn-outline-success mb-4" href="?page={{ mails.paginator.num_pages }}">Last</a>
+{% endif %}
+
+{% endblock %}

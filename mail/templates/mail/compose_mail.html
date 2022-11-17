@@ -1,0 +1,69 @@
+{% extends "mail/mail_base.html" %}
+{% load crispy_forms_tags %}
+{% block mails %}
+<form role="form" method="POST">
+    {% csrf_token %}
+    <fieldset>
+        {{ form|crispy }}
+    </fieldset>
+    <div class="container">
+        <button class="btn btn-success px-4" type="submit">Send</button>
+        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#GiveUpAttachments">
+            <span class="fa fa-paperclip"></span>
+        </button>
+    </div>
+</form>
+<div class="modal fade" data-backdrop="false" id="GiveUpAttachments" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="opacity: 1;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title font-weight-bold" id="exampleModalLabel">
+            Let's Say No to Attachments!
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="height: 350px;">
+          <div id="noAttachmentDemo" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+              <li data-target="#noAttachmentDemo" data-slide-to="0" class="active"></li>
+              <li data-target="#noAttachmentDemo" data-slide-to="1"></li>
+              <li data-target="#noAttachmentDemo" data-slide-to="2"></li>
+            </ul>
+          
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="noAttachmentImage" src="https://miro.medium.com/max/1400/1*wF3YwmhpyMOGzyDQ88qzKw.png" alt="" style="border-radius: 25px;">
+                <h6>Let's use Google drive or any cloud storage links instead of email Attachments. Scroll to understand Why!</h6>
+              </div>
+              <div class="carousel-item">
+                <img class="noAttachmentImage" src="https://miro.medium.com/max/1400/1*nVCrOSU8DNOS-y6wUCoLeg.png" alt="">
+                <h6>Yearly CO2 emissions from unread email attachments in the workplace per employee is equivalent to driving a passenger car 1093 miles</h6>
+              </div>
+              <div class="carousel-item">
+                <img class="noAttachmentImage" src="https://miro.medium.com/max/1400/1*2hAVUW2gnwRZDTApog18Lg.png" alt="">
+                <h6>Metric Tons of CO2 compared — NYC Office building vs. Unread emails</h6>
+              </div>
+            </div>
+          
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#noAttachmentDemo" data-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#noAttachmentDemo" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
+          
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Go Back!</button>
+          <button type="button" class="btn btn-danger">Continue Anyway</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
